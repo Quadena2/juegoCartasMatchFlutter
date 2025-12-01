@@ -4,11 +4,10 @@ class DatosEstaticos {
   static List<ModeloVocabulario> obtenerVocabulario() {
     return [
       // Animales
-      // ANIMALES
       ModeloVocabulario(
         id: 'cat',
         rutaImagen: 'assets/images/animals/cat.png',
-        traducciones: {'en': 'Cat', 'es': 'Gato', 'ay': 'Misi'},
+        traducciones: {'en': 'Cat', 'es': 'Gato', 'ay': 'Phisi'},
         idCategoria: 'animales',
       ),
       ModeloVocabulario(
@@ -20,19 +19,19 @@ class DatosEstaticos {
       ModeloVocabulario(
         id: 'cow',
         rutaImagen: 'assets/images/animals/cow.png',
-        traducciones: {'en': 'Cow', 'es': 'Vaca', 'ay': 'Alu'},
+        traducciones: {'en': 'Cow', 'es': 'Vaca', 'ay': 'Waka'},
         idCategoria: 'animales',
       ),
       ModeloVocabulario(
         id: 'horse',
         rutaImagen: 'assets/images/animals/horse.png',
-        traducciones: {'en': 'Horse', 'es': 'Caballo', 'ay': 'Alu'},
+        traducciones: {'en': 'Horse', 'es': 'Caballo', 'ay': 'Qaqilu'},
         idCategoria: 'animales',
       ),
       ModeloVocabulario(
         id: 'sheep',
         rutaImagen: 'assets/images/animals/sheep.png',
-        traducciones: {'en': 'Sheep', 'es': 'Oveja', 'ay': 'Uwi'},
+        traducciones: {'en': 'Sheep', 'es': 'Oveja', 'ay': 'Uwija'},
         idCategoria: 'animales',
       ),
       ModeloVocabulario(
@@ -44,13 +43,13 @@ class DatosEstaticos {
       ModeloVocabulario(
         id: 'pig',
         rutaImagen: 'assets/images/animals/pig.png',
-        traducciones: {'en': 'Pig', 'es': 'Cerdo', 'ay': 'Khuchi'},
+        traducciones: {'en': 'Pig', 'es': 'Cerdo', 'ay': 'Khuchhi'},
         idCategoria: 'animales',
       ),
       ModeloVocabulario(
         id: 'rabbit',
         rutaImagen: 'assets/images/animals/rabbit.png',
-        traducciones: {'en': 'Rabbit', 'es': 'Conejo', 'ay': 'Kawallu'},
+        traducciones: {'en': 'Rabbit', 'es': 'Conejo', 'ay': "Wank'u"},
         idCategoria: 'animales',
       ),
       ModeloVocabulario(
@@ -68,7 +67,7 @@ class DatosEstaticos {
       ModeloVocabulario(
         id: 'duck',
         rutaImagen: 'assets/images/animals/duck.png',
-        traducciones: {'en': 'Duck', 'es': 'Pato', 'ay': 'Patu'},
+        traducciones: {'en': 'Duck', 'es': 'Pato', 'ay': 'Unkalla, Pili'},
         idCategoria: 'animales',
       ),
       ModeloVocabulario(
@@ -80,37 +79,37 @@ class DatosEstaticos {
       ModeloVocabulario(
         id: 'frog',
         rutaImagen: 'assets/images/animals/frog.png',
-        traducciones: {'en': 'Frog', 'es': 'Rana', 'ay': "Hamp'atu"},
+        traducciones: {'en': 'Frog', 'es': 'Rana', 'ay': "K'ayra"},
         idCategoria: 'animales',
       ),
       ModeloVocabulario(
         id: 'snake',
         rutaImagen: 'assets/images/animals/snake.png',
-        traducciones: {'en': 'Snake', 'es': 'Serpiente', 'ay': "K'uyka"},
+        traducciones: {'en': 'Snake', 'es': 'Serpiente', 'ay': "Asiru"},
         idCategoria: 'animales',
       ),
       ModeloVocabulario(
         id: 'lion',
         rutaImagen: 'assets/images/animals/lion.png',
-        traducciones: {'en': 'Lion', 'es': 'León', 'ay': 'Untaki'},
+        traducciones: {'en': 'Lion', 'es': 'León', 'ay': 'Liyun'},
         idCategoria: 'animales',
       ),
       ModeloVocabulario(
         id: 'tiger',
         rutaImagen: 'assets/images/animals/tiger.png',
-        traducciones: {'en': 'Tiger', 'es': 'Tigre', 'ay': "Qari león"},
+        traducciones: {'en': 'Tiger', 'es': 'Tigre', 'ay': "Titi"},
         idCategoria: 'animales',
       ),
       ModeloVocabulario(
         id: 'bear',
         rutaImagen: 'assets/images/animals/bear.png',
-        traducciones: {'en': 'Bear', 'es': 'Oso', 'ay': 'Ukucha'},
+        traducciones: {'en': 'Bear', 'es': 'Oso', 'ay': 'Jukumari'},
         idCategoria: 'animales',
       ),
       ModeloVocabulario(
         id: 'fox',
         rutaImagen: 'assets/images/animals/fox.png',
-        traducciones: {'en': 'Fox', 'es': 'Zorro', 'ay': 'Atuq'},
+        traducciones: {'en': 'Fox', 'es': 'Zorro', 'ay': 'Qamaqi'},
         idCategoria: 'animales',
       ),
       ModeloVocabulario(
@@ -130,25 +129,25 @@ class DatosEstaticos {
       ModeloVocabulario(
         id: 'red',
         rutaImagen: 'assets/images/colors/red.png',
-        traducciones: {'en': 'Red', 'es': 'Rojo', 'ay': "Jank'o ch'iyara"},
+        traducciones: {'en': 'Red', 'es': 'Rojo', 'ay': "Wila"},
         idCategoria: 'colores',
       ),
       ModeloVocabulario(
         id: 'blue',
         rutaImagen: 'assets/images/colors/blue.png',
-        traducciones: {'en': 'Blue', 'es': 'Azul', 'ay': "Llawira"},
+        traducciones: {'en': 'Blue', 'es': 'Azul', 'ay': "Larama"},
         idCategoria: 'colores',
       ),
       ModeloVocabulario(
         id: 'yellow',
         rutaImagen: 'assets/images/colors/yellow.png',
-        traducciones: {'en': 'Yellow', 'es': 'Amarillo', 'ay': "K'illu"},
+        traducciones: {'en': 'Yellow', 'es': 'Amarillo', 'ay': "Q'illu"},
         idCategoria: 'colores',
       ),
       ModeloVocabulario(
         id: 'green',
         rutaImagen: 'assets/images/colors/green.png',
-        traducciones: {'en': 'Green', 'es': 'Verde', 'ay': "Ch'iyara"},
+        traducciones: {'en': 'Green', 'es': 'Verde', 'ay': "Ch'uxña"},
         idCategoria: 'colores',
       ),
       ModeloVocabulario(
@@ -160,37 +159,37 @@ class DatosEstaticos {
       ModeloVocabulario(
         id: 'white',
         rutaImagen: 'assets/images/colors/white.png',
-        traducciones: {'en': 'White', 'es': 'Blanco', 'ay': "Jank'o"},
+        traducciones: {'en': 'White', 'es': 'Blanco', 'ay': "Janq'u"},
         idCategoria: 'colores',
       ),
       ModeloVocabulario(
         id: 'brown',
         rutaImagen: 'assets/images/colors/brown.png',
-        traducciones: {'en': 'Brown', 'es': 'Café', 'ay': "Ch'uxña ch'iyara"},
+        traducciones: {'en': 'Brown', 'es': 'Café', 'ay': "Ch'umphi"},
         idCategoria: 'colores',
       ),
       ModeloVocabulario(
         id: 'orange',
         rutaImagen: 'assets/images/colors/orange.png',
-        traducciones: {'en': 'Orange', 'es': 'Naranja', 'ay': "K'illu ch'uxña"},
+        traducciones: {'en': 'Orange', 'es': 'Naranja', 'ay': "Wantura"},
         idCategoria: 'colores',
       ),
       ModeloVocabulario(
         id: 'purple',
         rutaImagen: 'assets/images/colors/purple.png',
-        traducciones: {'en': 'Purple', 'es': 'Morado', 'ay': "Ch'iyara wila"},
+        traducciones: {'en': 'Purple', 'es': 'Morado', 'ay': "Kulli"},
         idCategoria: 'colores',
       ),
       ModeloVocabulario(
         id: 'pink',
         rutaImagen: 'assets/images/colors/pink.png',
-        traducciones: {'en': 'Pink', 'es': 'Rosado', 'ay': "Ch'iyara q'illu"},
+        traducciones: {'en': 'Pink', 'es': 'Rosado', 'ay': "Anti"},
         idCategoria: 'colores',
       ),
       ModeloVocabulario(
         id: 'gray',
         rutaImagen: 'assets/images/colors/gray.png',
-        traducciones: {'en': 'Gray', 'es': 'Gris', 'ay': "Ch'iyara jank'o"},
+        traducciones: {'en': 'Gray', 'es': 'Gris', 'ay': "Ch'ixi"},
         idCategoria: 'colores',
       ),
 
@@ -198,7 +197,7 @@ class DatosEstaticos {
       ModeloVocabulario(
         id: '1',
         rutaImagen: 'assets/images/numbers/one.png',
-        traducciones: {'en': 'One', 'es': 'Uno', 'ay': "Mayaya"},
+        traducciones: {'en': 'One', 'es': 'Uno', 'ay': "Maya"},
         idCategoria: 'numeros',
       ),
       ModeloVocabulario(
@@ -222,7 +221,7 @@ class DatosEstaticos {
       ModeloVocabulario(
         id: '5',
         rutaImagen: 'assets/images/numbers/five.png',
-        traducciones: {'en': 'Five', 'es': 'Cinco', 'ay': 'Payaqallqo'},
+        traducciones: {'en': 'Five', 'es': 'Cinco', 'ay': 'Phisqa'},
         idCategoria: 'numeros',
       ),
       ModeloVocabulario(
@@ -258,37 +257,37 @@ class DatosEstaticos {
       ModeloVocabulario(
         id: '11',
         rutaImagen: 'assets/images/numbers/eleven.png',
-        traducciones: {'en': 'Eleven', 'es': 'Once', 'ay': 'Tunka mayaya'},
+        traducciones: {'en': 'Eleven', 'es': 'Once', 'ay': 'Tunka mayani'},
         idCategoria: 'numeros',
       ),
       ModeloVocabulario(
         id: '12',
         rutaImagen: 'assets/images/numbers/twelve.png',
-        traducciones: {'en': 'Twelve', 'es': 'Doce', 'ay': 'Tunka paya'},
+        traducciones: {'en': 'Twelve', 'es': 'Doce', 'ay': 'Tunka payani'},
         idCategoria: 'numeros',
       ),
       ModeloVocabulario(
         id: '13',
         rutaImagen: 'assets/images/numbers/thirteen.png',
-        traducciones: {'en': 'Thirteen', 'es': 'Trece', 'ay': 'Tunka kimsa'},
+        traducciones: {'en': 'Thirteen', 'es': 'Trece', 'ay': 'Tunka kimsani'},
         idCategoria: 'numeros',
       ),
       ModeloVocabulario(
         id: '14',
         rutaImagen: 'assets/images/numbers/fourteen.png',
-        traducciones: {'en': 'Fourteen', 'es': 'Catorce', 'ay': 'Tunka pusi'},
+        traducciones: {'en': 'Fourteen', 'es': 'Catorce', 'ay': 'Tunka pusini'},
         idCategoria: 'numeros',
       ),
       ModeloVocabulario(
         id: '15',
         rutaImagen: 'assets/images/numbers/fifteen.png',
-        traducciones: {'en': 'Fifteen', 'es': 'Quince', 'ay': 'Tunka phisqa'},
+        traducciones: {'en': 'Fifteen', 'es': 'Quince', 'ay': 'Tunka phisqani'},
         idCategoria: 'numeros',
       ),
       ModeloVocabulario(
         id: '16',
         rutaImagen: 'assets/images/numbers/sixteen.png',
-        traducciones: {'en': 'Sixteen', 'es': 'Dieciséis', 'ay': 'Tunka suxta'},
+        traducciones: {'en': 'Sixteen', 'es': 'Dieciséis', 'ay': 'Tunka suxtani'},
         idCategoria: 'numeros',
       ),
       ModeloVocabulario(
@@ -297,7 +296,7 @@ class DatosEstaticos {
         traducciones: {
           'en': 'Seventeen',
           'es': 'Diecisiete',
-          'ay': 'Tunka paqallqo',
+          'ay': 'Tunka paqallquni',
         },
         idCategoria: 'numeros',
       ),
@@ -307,7 +306,7 @@ class DatosEstaticos {
         traducciones: {
           'en': 'Eighteen',
           'es': 'Dieciocho',
-          'ay': 'Tunka kimsaqallqo',
+          'ay': 'Tunka kimsaqallquni',
         },
         idCategoria: 'numeros',
       ),
@@ -317,14 +316,14 @@ class DatosEstaticos {
         traducciones: {
           'en': 'Nineteen',
           'es': 'Diecinueve',
-          'ay': 'Tunka llatunka',
+          'ay': 'Tunka llätunkani',
         },
         idCategoria: 'numeros',
       ),
       ModeloVocabulario(
         id: '20',
         rutaImagen: 'assets/images/numbers/twenty.png',
-        traducciones: {'en': 'Twenty', 'es': 'Veinte', 'ay': 'Paya tunka'},
+        traducciones: {'en': 'Twenty', 'es': 'Veinte', 'ay': 'Pä tunka'},
         idCategoria: 'numeros',
       ),
     ];
