@@ -1,4 +1,4 @@
-# card_memory_game_three
+# Juego de Pares
 
 Juego de Pares
     Tematicas: Colores, Animales, Numeros (puede que falte registrar mas datos)
