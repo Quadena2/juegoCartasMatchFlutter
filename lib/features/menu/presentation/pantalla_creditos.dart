@@ -8,7 +8,8 @@ class PantallaCreditos extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Creditos"),
-        backgroundColor: Colors.blueGrey,
+           //       color: Colors.teal[400]!,
+        backgroundColor: Colors.teal[400],
         foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(

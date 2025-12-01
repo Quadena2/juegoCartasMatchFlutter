@@ -31,15 +31,18 @@ class _PantallaHistorialState extends State<PantallaHistorial> {
     // Obteniendo todos los datos de la lista
     final todosLosPuntajes = _repositorio.obtenerHistorial();
 
-    // Filtrando idioma seleccionado
-    setState(() {
-      _listaPuntajes = todosLosPuntajes.where((s) =>
-          s.nombreJugador.toLowerCase() == widget.nombreJugador.toLowerCase()
-          && s.idioma == _idiomaActual
-        ).toList();
+    // Filtrando idioma seleccionado y jugador
+    final filtro = todosLosPuntajes.where((s) =>
+        s.nombreJugador.toLowerCase() == widget.nombreJugador.toLowerCase()
+        && s.idioma == _idiomaActual
+    ).toList();
 
-        // Ordenando (Order by desc)
-        _listaPuntajes.sort((a,b) => b.fecha.compareTo(a.fecha));
+    // Ordenando (Order by desc)
+    filtro.sort((a,b) => b.fecha.compareTo(a.fecha));
+
+    // Actualizando
+    setState(() {
+      _listaPuntajes = filtro;
     },);
   }
 
@@ -61,6 +64,7 @@ class _PantallaHistorialState extends State<PantallaHistorial> {
               setState(() {
                 _idiomaActual = nuevoIdioma;
               });
+              _cargarDatos();
             },
           ),
 
@@ -68,14 +72,13 @@ class _PantallaHistorialState extends State<PantallaHistorial> {
           Expanded(
             child: _listaPuntajes.isEmpty
               ? MensajeVacio(nombreJugador: widget.nombreJugador)
-              : ListView.builder(
+              : ListView(
                 padding: const EdgeInsets.only(top: 20, bottom: 20),
-                itemBuilder: (context, index) {
-                  // Evitando "errors range" al querer mostrar un registro inexistente
-                  if(index >= _listaPuntajes.length) return const SizedBox();
-                  
-                  return ItemHistorial(puntaje: _listaPuntajes[index]);
-                },
+                physics: const BouncingScrollPhysics(),
+                children: _listaPuntajes.map((puntaje) {
+                  // Creando solo los indices que existen
+                  return ItemHistorial(puntaje: puntaje);
+                }).toList(),
               )
           ),
         ],
