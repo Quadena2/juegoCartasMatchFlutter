@@ -29,7 +29,7 @@ class ItemHistorial extends StatelessWidget {
           _traducirCategoria(puntaje.idCategoria),
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        // Subtitulo dificultad
+        // Subtitulo de dificultad
         subtitle: Text("Dificultad: ${puntaje.dificultad}"),
         // Fecha
         trailing: Column(

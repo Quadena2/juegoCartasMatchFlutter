@@ -1,7 +1,7 @@
-import 'package:card_memory_game_three/core/data/inicializador_db.dart';
+
 import 'package:card_memory_game_three/features/puntaje/data/models/modelo_puntaje.dart';
 import 'package:card_memory_game_three/features/vocabulario/data/models/modelo_vocabulario.dart';
-import 'package:hive/hive.dart';
+import 'package:card_memory_game_three/core/data/datos_estaticos.dart';
 import 'package:card_memory_game_three/features/juego/domain/entities/carta_juego.dart';
 import 'package:card_memory_game_three/features/juego/domain/logic/logica_tablero.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +46,7 @@ class ProveedorJuego extends ChangeNotifier {
     );
   }
 
-  // getters para UI (temporizador)
+  // Getters para UI (temporizador)
   int get segundosTranscurridos => _temporizador.segundos;
   bool get enPausa => _temporizador.enPausa;
 
@@ -73,19 +73,16 @@ class ProveedorJuego extends ChangeNotifier {
   ) async {
     _guardarSesion(tamano, idCategoria, idioma, nombreJugador);
     _resetearEstado();
-
-    // Cargando datos de Hive (db)
-    if (!Hive.isBoxOpen(InicializadorDb.CAJA_VOCABULARIO)) {
-      await Hive.openBox<ModeloVocabulario>(InicializadorDb.CAJA_VOCABULARIO);
-    }
-    var caja = Hive.box<ModeloVocabulario>(InicializadorDb.CAJA_VOCABULARIO);
+    
+    // Obteniendo los datos de la lista estatica
+    List<ModeloVocabulario> datos = DatosEstaticos.obtenerVocabulario();
 
     // Generar tablero con logica respectiva
     cartas = _logica.generarTablero(
       tamanoCuadricula: tamano,
       idiomaObjetivo: idioma,
       idCategoria: idCategoria,
-      database: caja.values.toList(),
+      database: datos,
     );
 
     notifyListeners();
@@ -167,8 +164,8 @@ class ProveedorJuego extends ChangeNotifier {
     }
   }
 
+  // Guardando el resultado
   Future<void> _guardarResultado() async {
-    // Creando el modelo y pasando al repositorio
     final modelo = ModeloPuntaje(
       nombreJugador: _jugador,
       puntaje: puntaje,

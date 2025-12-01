@@ -1,17 +1,23 @@
 
-import 'package:hive/hive.dart';
+// Simulando una db temporal para los puntajes, 
+// al no usar db creamos una lista temporal con los puntajes
+// Al ser temporal no tiene persistencia, por lo cual 
+// ves que se cieere la app, los puntajes se reinician
 import 'package:card_memory_game_three/features/puntaje/data/models/modelo_puntaje.dart';
 
-// Abriendo y guardando los datos en Hive para el puntaje
 class RepositorioPuntaje {
-  static const String _nombreCaja = 'caja_puntajes';
+  static final List<ModeloPuntaje> _historialTemporal = [];
 
+  // Guardando
   Future<void> guardarPuntaje(ModeloPuntaje puntaje) async{
-    if(!Hive.isBoxOpen(_nombreCaja)){
-      await Hive.openBox<ModeloPuntaje>(_nombreCaja);
-    }
+    // Agregando un pequeño retraso (delay) para simular el proceso
+    await Future.delayed(const Duration(milliseconds: 100));
 
-    final caja = Hive.box<ModeloPuntaje>(_nombreCaja);
-    await caja.add(puntaje);
+    _historialTemporal.add(puntaje);
+  }
+
+  // Getter del historial (Mostrar)
+  List<ModeloPuntaje> obtenerHistorial(){
+    return List.from(_historialTemporal);
   }
 }
