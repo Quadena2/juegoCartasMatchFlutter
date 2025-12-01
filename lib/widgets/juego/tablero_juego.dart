@@ -58,6 +58,7 @@ class _TableroJuegoState extends State<TableroJuego> {
         itemBuilder: (context, index) {
           final carta = widget.proveedor.cartas[index];
 
+          // Crando controlador si no existe
           if (!_controladores.containsKey(index)) {
             _controladores[index] = FlipCardController();
           }
@@ -86,8 +87,10 @@ class _TableroJuegoState extends State<TableroJuego> {
 
           // Carta Jugable
           return FlipCard(
+            key: ValueKey(carta.id),
             controller: _controladores[index],
             flipOnTouch: false,
+            // Boca abajo
             front: GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
@@ -117,6 +120,7 @@ class _TableroJuegoState extends State<TableroJuego> {
                 ),
               ),
             ),
+            // Contenido (Cara arriba)
             back: CaraCarta(
               carta: carta,
               esFrente: false,
