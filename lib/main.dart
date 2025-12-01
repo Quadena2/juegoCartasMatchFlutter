@@ -8,7 +8,9 @@ import 'features/puntaje/data/models/modelo_puntaje.dart';
 
 import 'features/juego/presentation/providers/proveedor_juego.dart';
 import 'features/menu/presentation/pantalla_menu.dart';
+
 void main() async {
+  // Iniciando los graficos de flutter
   WidgetsFlutterBinding.ensureInitialized();
 
   // Iniciando Hive (db)
@@ -30,12 +32,10 @@ class MiAppJuego extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ProveedorJuego()),
-      ],
+      providers: [ChangeNotifierProvider(create: (_) => ProveedorJuego())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Vocabulario Didactico',
+        title: 'Juego de Pares',
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           useMaterial3: true,
@@ -49,9 +49,11 @@ class MiAppJuego extends StatelessWidget {
           // Tema global para botones elevados
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(12))
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadiusGeometry.circular(12),
+              ),
             ),
-          )
+          ),
         ),
         home: PantallaMenu(),
       ),

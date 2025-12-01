@@ -22,13 +22,14 @@ class ModeloPuntajeAdapter extends TypeAdapter<ModeloPuntaje> {
       fecha: fields[2] as DateTime,
       idCategoria: fields[3] as String,
       dificultad: fields[4] as String,
+      idioma: fields[5] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, ModeloPuntaje obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.nombreJugador)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class ModeloPuntajeAdapter extends TypeAdapter<ModeloPuntaje> {
       ..writeByte(3)
       ..write(obj.idCategoria)
       ..writeByte(4)
-      ..write(obj.dificultad);
+      ..write(obj.dificultad)
+      ..writeByte(5)
+      ..write(obj.idioma);
   }
 
   @override

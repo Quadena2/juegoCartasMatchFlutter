@@ -1,3 +1,6 @@
+export 'package:card_memory_game_three/features/menu/presentation/widgets/boton_principal.dart';
+export 'package:card_memory_game_three/features/menu/presentation/widgets/submenu_configuracion.dart';
+
 export 'package:card_memory_game_three/features/menu/presentation/widgets/item_historial.dart';
 export 'package:card_memory_game_three/features/menu/presentation/widgets/mensaje_vacio.dart';
 
@@ -6,3 +9,4 @@ export 'package:card_memory_game_three/features/menu/presentation/widgets/encabe
 export 'package:card_memory_game_three/features/menu/presentation/widgets/input_nombre.dart';
 export 'package:card_memory_game_three/features/menu/presentation/widgets/lista_niveles.dart';
 export 'package:card_memory_game_three/features/menu/presentation/widgets/plantilla_menu.dart';
+

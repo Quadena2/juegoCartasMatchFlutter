@@ -19,11 +19,15 @@ class ModeloPuntaje extends HiveObject {
   @HiveField(4)
   final String dificultad;
 
+  @HiveField(5)
+  final String idioma;
+
   ModeloPuntaje({
     required this.nombreJugador,
     required this.puntaje,
     required this.fecha,
     required this.idCategoria,
     required this.dificultad,
+    this.idioma = 'es',
   });
 }

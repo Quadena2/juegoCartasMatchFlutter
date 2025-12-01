@@ -28,7 +28,7 @@ class ListaNiveles extends StatelessWidget {
         const SizedBox(height: 12,),
 
         BotonMenu(
-          texto: "Colores (Ingles) - 5x5",
+          texto: "Numeros (Ingles) - 5x5",
           color: Colors.orange,
           icono: Icons.looks_one,
           alPresionar: () => alSeleccionarNivel(5, 'numeros', 'en'),
@@ -53,7 +53,7 @@ class ListaNiveles extends StatelessWidget {
         const SizedBox(height: 12,),
 
         BotonMenu(
-          texto: "Colores (Español) - 5x5",
+          texto: "Numeros (Español) - 5x5",
           color: Colors.orange,
           icono: Icons.looks_one,
           alPresionar: () => alSeleccionarNivel(5, 'numeros', 'es'),
@@ -78,7 +78,7 @@ class ListaNiveles extends StatelessWidget {
         const SizedBox(height: 12,),
 
         BotonMenu(
-          texto: "Colores (Aymara) - 5x5",
+          texto: "Numeros (Aymara) - 5x5",
           color: Colors.orange,
           icono: Icons.looks_one,
           alPresionar: () => alSeleccionarNivel(5, 'numeros', 'ay'),

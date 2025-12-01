@@ -63,7 +63,7 @@ class DialogosJuego {
           ],
         ),
         content: const Text(
-          "Has alcanzado el limite de 5 fallos",
+          "Has alcanzado el limite de 10 fallos",
           textAlign: TextAlign.center,
         ),
         actions: [

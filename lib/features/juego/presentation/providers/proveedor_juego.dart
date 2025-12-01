@@ -5,35 +5,65 @@ import 'package:hive/hive.dart';
 import 'package:card_memory_game_three/features/juego/domain/entities/carta_juego.dart';
 import 'package:card_memory_game_three/features/juego/domain/logic/logica_tablero.dart';
 import 'package:flutter/material.dart';
+import 'package:card_memory_game_three/core/utils/temporizador_juego.dart';
+import 'package:card_memory_game_three/features/puntaje/data/repositories/repositorio_puntaje.dart';
 import 'dart:async';
 
 class ProveedorJuego extends ChangeNotifier {
+  // Dependencia
   final LogicaTablero _logica = LogicaTablero();
+  final RepositorioPuntaje _repositorioPuntaje = RepositorioPuntaje();
+  late final TemporizadorJuego _temporizador;
 
   // Estado del tablero
   List<CartaJuego> cartas = [];
   List<int> indicesVolteados = [];
-  bool procesando = false;
 
   // Estadisticas
   int puntaje = 0;
   int fallos = 0;
   int aciertos = 0;
-  int segundosTranscurridos = 0;
-  final int maximosFallos = 5;
+  final int maximosFallos = 10;
 
   // Estados del juego
   bool juegoTerminado = false;
+  bool procesando = false;
   bool victoria = false;
-  bool enPausa = false;
-
-  Timer? _temporizador;
 
   // Variables de sesion para poder reiniciar
-  String _jugadorGuardado = "";
-  String _categoriaGuardado = "";
-  String _idiomaGuardado = "";
-  int _tamanoGuardado = 0;
+  late String _jugador = "";
+  late String _categoria = "";
+  late String _idioma = "";
+  late int _tamano;
+
+  ProveedorJuego() {
+    // Calculando el puntaje cada segundo que pasa
+    _temporizador = TemporizadorJuego(
+      alActualizar: (){
+        _calcularPuntajeDinamico();
+        notifyListeners();
+      }
+    );
+  }
+
+  // getters para UI (temporizador)
+  int get segundosTranscurridos => _temporizador.segundos;
+  bool get enPausa => _temporizador.enPausa;
+
+  // Puntuacion dinamica (cada segundo)
+  void _calcularPuntajeDinamico(){
+    if(juegoTerminado || victoria) return;
+
+    // Puntaje Final = (aciertos * 100) - (fallas * 50) - (segundos *2)
+    int baseAciertos = aciertos * 100;
+    int penalizacionFallos = fallos * 50;
+    int penalizacionTiempo = _temporizador.segundos * 2;
+
+    int puntajeFinal = baseAciertos - penalizacionFallos - penalizacionTiempo;
+
+    // Evitando puntaje negativo, minimo 0
+    puntaje = puntajeFinal > 0 ? puntajeFinal : 0;
+  }
 
   Future<void> iniciarJuego(
     int tamano,
@@ -41,12 +71,7 @@ class ProveedorJuego extends ChangeNotifier {
     String idioma,
     String nombreJugador,
   ) async {
-    // Guardar configuracion para reiniciar
-    _tamanoGuardado = tamano;
-    _categoriaGuardado = idCategoria;
-    _idiomaGuardado = idioma;
-    _jugadorGuardado = nombreJugador;
-
+    _guardarSesion(tamano, idCategoria, idioma, nombreJugador);
     _resetearEstado();
 
     // Cargando datos de Hive (db)
@@ -54,26 +79,105 @@ class ProveedorJuego extends ChangeNotifier {
       await Hive.openBox<ModeloVocabulario>(InicializadorDb.CAJA_VOCABULARIO);
     }
     var caja = Hive.box<ModeloVocabulario>(InicializadorDb.CAJA_VOCABULARIO);
-    List<ModeloVocabulario> datos = caja.values.toList();
 
-    // Generar tablero
+    // Generar tablero con logica respectiva
     cartas = _logica.generarTablero(
       tamanoCuadricula: tamano,
       idiomaObjetivo: idioma,
       idCategoria: idCategoria,
-      database: datos,
+      database: caja.values.toList(),
     );
+
     notifyListeners();
   }
 
   // Reiniciar
   Future<void> reiniciarJuego() async {
-    await iniciarJuego(
-      _tamanoGuardado,
-      _categoriaGuardado,
-      _idiomaGuardado,
-      _jugadorGuardado,
+    await iniciarJuego(_tamano, _categoria, _idioma, _jugador);
+  }
+
+  // Acciones del usuario
+  void alternarPausa() {
+    if (juegoTerminado || victoria) return;
+    _temporizador.alternarPausa();
+    notifyListeners();
+  }
+
+  bool puedeVoltear(int index) {
+    if (procesando || juegoTerminado || victoria || enPausa) return false;
+    if (cartas[index].estaEmparejada || indicesVolteados.contains(index))
+      return false;
+    return true;
+  }
+
+  void voltearCarta(int index) {
+    indicesVolteados.add(index);
+    if (indicesVolteados.length == 2) {
+      _procesarIntento();
+    }
+  }
+
+  // Logica interna
+  void _procesarIntento() async {
+    procesando = true;
+
+    final idx1 = indicesVolteados[0];
+    final idx2 = indicesVolteados[1];
+
+    // Pequeña espera para que el usuario pueda ver ambas cartas antes de ser volteadas de nuevo
+    await Future.delayed(const Duration(milliseconds: 300));
+
+    if (cartas[idx1].idPareja == cartas[idx2].idPareja) {
+      _manejarAcierto(idx1, idx2);
+    } else {
+      await _manejarFallo();
+    }
+
+    indicesVolteados.clear();
+    procesando = false;
+    notifyListeners();
+  }
+
+  void _manejarAcierto(int idx1, int idx2) {
+    cartas[idx1].estaEmparejada = true;
+    cartas[idx2].estaEmparejada = true;
+    
+    aciertos++;
+    _calcularPuntajeDinamico();
+
+    // Verificando si todas las cartas estan emparejadas (ganar)
+    if (cartas.every((c) => c.estaEmparejada)) {
+      victoria = true;
+      _temporizador.detener();
+      _guardarResultado();
+    }
+  }
+
+  // Manejando fallos y detectando si perdio
+  Future<void> _manejarFallo() async {
+    fallos++;
+    _calcularPuntajeDinamico();
+    notifyListeners();
+    // Espera adicional para que el usuario pueda ver su error
+    await Future.delayed(const Duration(milliseconds: 1000));
+
+    if (fallos >= maximosFallos) {
+      juegoTerminado = true;
+      _temporizador.detener();
+    }
+  }
+
+  Future<void> _guardarResultado() async {
+    // Creando el modelo y pasando al repositorio
+    final modelo = ModeloPuntaje(
+      nombreJugador: _jugador,
+      puntaje: puntaje,
+      fecha: DateTime.now(),
+      idCategoria: _categoria,
+      dificultad: "${_tamano}x${_tamano}",
+      idioma: _idioma,
     );
+    await _repositorioPuntaje.guardarPuntaje(modelo);
   }
 
   // Control de estado interno
@@ -81,117 +185,30 @@ class ProveedorJuego extends ChangeNotifier {
     puntaje = 0;
     fallos = 0;
     aciertos = 0;
-    segundosTranscurridos = 0;
     juegoTerminado = false;
     victoria = false;
-    enPausa = false;
     indicesVolteados.clear();
     procesando = false;
 
-    _temporizador?.cancel();
-    _iniciarTemporizador();
+    indicesVolteados.clear();
+    _temporizador.iniciar();
   }
 
-  void _iniciarTemporizador() {
-    _temporizador = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (juegoTerminado || victoria) {
-        timer.cancel();
-      } else if (!enPausa) {
-        segundosTranscurridos++;
-        notifyListeners();
-      }
-    });
-  }
-
-  void alternarPausa() {
-    if (juegoTerminado || victoria) return;
-    enPausa = !enPausa;
-    notifyListeners();
+  void _guardarSesion(
+    int tamano,
+    String categoria,
+    String idioma,
+    String nombreJugador,
+  ) {
+    _tamano = tamano;
+    _categoria = categoria;
+    _idioma = idioma;
+    _jugador = nombreJugador;
   }
 
   @override
-  void dispose() {
-    _temporizador?.cancel();
+  void dispose(){
+    _temporizador.detener();
     super.dispose();
-  }
-
-  // Interaccion de cartas
-  bool puedeVoltear(int index) {
-    if (procesando || juegoTerminado || victoria || enPausa) return false;
-    if (cartas[index].estaEmparejada) return false;
-    if (indicesVolteados.contains(index)) return false;
-    return true;
-  }
-
-  void voltearCarta(int index) {
-    indicesVolteados.add(index);
-    if (indicesVolteados.length == 2) {
-      _verificarPareja();
-    }
-  }
-
-  void _verificarPareja() async {
-    procesando = true;
-    int idx1 = indicesVolteados[0];
-    int idx2 = indicesVolteados[1];
-
-    // Dejando una espera para ver la segunda carta
-    await Future.delayed(const Duration(milliseconds: 300));
-
-    if (cartas[idx1].idPareja == cartas[idx2].idPareja) {
-      // Si es Match
-      cartas[idx1].estaEmparejada = true;
-      cartas[idx2].estaEmparejada = true;
-      puntaje += 10;
-      aciertos++;
-
-      indicesVolteados.clear();
-      procesando = false;
-      notifyListeners();
-
-      // Verificar victoria total (todas match correctas)
-      if (cartas.every((c) => c.estaEmparejada)) {
-        victoria = true;
-        _temporizador?.cancel();
-        _guardarPuntajeEnDb();
-        notifyListeners();
-      }
-    } else {
-      // Fallos (no Match)
-      fallos++;
-      notifyListeners();
-
-      await Future.delayed(const Duration(milliseconds: 1000));
-
-      // Verificar si es Game Over (limite de errores superado)
-      if (fallos >= maximosFallos) {
-        juegoTerminado = true;
-        _temporizador?.cancel();
-      }
-
-      indicesVolteados.clear();
-      procesando = false;
-      notifyListeners();
-    }
-  }
-
-  // Persistencia de datos (db)
-  Future<void> _guardarPuntajeEnDb() async {
-    if (_jugadorGuardado.isEmpty) return;
-
-    if (!Hive.isBoxOpen('caja_puntajes')) {
-      await Hive.openBox<ModeloPuntaje>('caja_puntajes');
-    }
-    final cajaPuntajes = Hive.box<ModeloPuntaje>('caja_puntajes');
-
-    final nuevoPuntaje = ModeloPuntaje(
-      nombreJugador: _jugadorGuardado,
-      puntaje: puntaje,
-      fecha: DateTime.now(),
-      idCategoria: _categoriaGuardado,
-      dificultad: "${_tamanoGuardado}x${_tamanoGuardado}",
-    );
-
-    await cajaPuntajes.add(nuevoPuntaje);
   }
 }

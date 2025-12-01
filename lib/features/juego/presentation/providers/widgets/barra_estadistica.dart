@@ -21,7 +21,7 @@ class BarraEstadistica extends StatelessWidget {
           // Nro fallos
           _WidgetDato(
             icono: Icons.close,
-            texto: "Nro de Fallos: ${proveedor.fallos}/5",
+            texto: "Fallos: ${proveedor.fallos}/10",
             color: Colors.red,
             esNegrilla: proveedor.fallos >= 3,
           ),
