@@ -1,5 +1,5 @@
-import 'package:card_memory_game_three/features/juego/presentation/providers/proveedor_juego.dart';
-import 'package:card_memory_game_three/features/juego/presentation/providers/widgets/cara_carta.dart';
+import 'package:card_memory_game_three/models/proveedor_juego.dart';
+import 'package:card_memory_game_three/widgets/juego/cara_carta.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:card_memory_game_three/features/juego/presentation/providers/proveedor_juego.dart';
+import 'package:card_memory_game_three/models/proveedor_juego.dart';
 import 'package:flutter/material.dart';
 
 class BarraEstadistica extends StatelessWidget {

@@ -3,7 +3,7 @@
 // al no usar db creamos una lista temporal con los puntajes
 // Al ser temporal no tiene persistencia, por lo cual 
 // ves que se cieere la app, los puntajes se reinician
-import 'package:card_memory_game_three/features/puntaje/data/models/modelo_puntaje.dart';
+import 'package:card_memory_game_three/models/modelo_puntaje.dart';
 
 class RepositorioPuntaje {
   static final List<ModeloPuntaje> _historialTemporal = [];

@@ -138,7 +138,6 @@ class _TarjetaMiembro extends StatelessWidget {
   final String ci;
 
   const _TarjetaMiembro({
-    super.key,
     required this.nombre,
     required this.rol,
     required this.icono,

@@ -1,4 +1,4 @@
-import 'package:card_memory_game_three/features/juego/domain/entities/carta_juego.dart';
+import 'package:card_memory_game_three/models/carta_juego.dart';
 import 'package:flutter/material.dart';
 
 // Solo diseño de las cartas y sus cambio de colores

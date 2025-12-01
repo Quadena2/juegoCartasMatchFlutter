@@ -1,8 +1,8 @@
-import 'package:card_memory_game_three/features/menu/presentation/widgets/item_historial.dart';
-import 'package:card_memory_game_three/features/menu/presentation/widgets/mensaje_vacio.dart';
-import 'package:card_memory_game_three/features/puntaje/data/models/modelo_puntaje.dart';
-import 'package:card_memory_game_three/features/puntaje/data/repositories/repositorio_puntaje.dart';
-import 'package:card_memory_game_three/features/puntaje/presentation/widgets/cabecera_filtro.dart';
+import 'package:card_memory_game_three/widgets/menu/item_historial.dart';
+import 'package:card_memory_game_three/widgets/puntaje/mensaje_vacio.dart';
+import 'package:card_memory_game_three/models/modelo_puntaje.dart';
+import 'package:card_memory_game_three/core/store/repositorio_puntaje.dart';
+import 'package:card_memory_game_three/widgets/puntaje/cabecera_filtro.dart';
 import 'package:flutter/material.dart';
 
 

@@ -1,4 +1,4 @@
-import 'package:card_memory_game_three/features/puntaje/data/models/modelo_puntaje.dart';
+import 'package:card_memory_game_three/models/modelo_puntaje.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

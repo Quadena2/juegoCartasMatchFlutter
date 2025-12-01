@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'features/juego/presentation/providers/proveedor_juego.dart';
-import 'features/menu/presentation/pantalla_menu.dart';
+import 'models/proveedor_juego.dart';
+import 'screens/pantalla_menu.dart';
 
 void main() async {
   // Cargando UI

@@ -1,4 +1,4 @@
-import 'package:card_memory_game_three/features/vocabulario/data/models/modelo_vocabulario.dart';
+import 'package:card_memory_game_three/models/modelo_vocabulario.dart';
 
 class DatosEstaticos {
   static List<ModeloVocabulario> obtenerVocabulario() {

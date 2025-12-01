@@ -1,12 +1,12 @@
 
-import 'package:card_memory_game_three/features/puntaje/data/models/modelo_puntaje.dart';
-import 'package:card_memory_game_three/features/vocabulario/data/models/modelo_vocabulario.dart';
+import 'package:card_memory_game_three/models/modelo_puntaje.dart';
+import 'package:card_memory_game_three/models/modelo_vocabulario.dart';
 import 'package:card_memory_game_three/core/data/datos_estaticos.dart';
-import 'package:card_memory_game_three/features/juego/domain/entities/carta_juego.dart';
-import 'package:card_memory_game_three/features/juego/domain/logic/logica_tablero.dart';
+import 'package:card_memory_game_three/models/carta_juego.dart';
+import 'package:card_memory_game_three/core/logic/logica_tablero.dart';
 import 'package:flutter/material.dart';
 import 'package:card_memory_game_three/core/utils/temporizador_juego.dart';
-import 'package:card_memory_game_three/features/puntaje/data/repositories/repositorio_puntaje.dart';
+import 'package:card_memory_game_three/core/store/repositorio_puntaje.dart';
 import 'dart:async';
 
 class ProveedorJuego extends ChangeNotifier {

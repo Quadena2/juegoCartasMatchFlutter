@@ -1,5 +1,5 @@
-import 'package:card_memory_game_three/features/juego/domain/entities/carta_juego.dart';
-import 'package:card_memory_game_three/features/vocabulario/data/models/modelo_vocabulario.dart';
+import 'package:card_memory_game_three/models/carta_juego.dart';
+import 'package:card_memory_game_three/models/modelo_vocabulario.dart';
 
 class LogicaTablero {
   // Generando lista de cartas para jugar

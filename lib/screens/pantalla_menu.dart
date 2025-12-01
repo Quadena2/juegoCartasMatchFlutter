@@ -1,9 +1,9 @@
-import 'package:card_memory_game_three/features/juego/presentation/pantalla_juego.dart';
-import 'package:card_memory_game_three/features/juego/presentation/providers/proveedor_juego.dart';
-import 'package:card_memory_game_three/features/menu/presentation/pantalla_creditos.dart';
-import 'package:card_memory_game_three/features/menu/presentation/pantalla_historial.dart';
-import 'package:card_memory_game_three/features/menu/presentation/pantalla_instrucciones.dart';
-import 'package:card_memory_game_three/features/menu/presentation/widgets/widgets_menu.dart';
+import 'package:card_memory_game_three/screens/pantalla_juego.dart';
+import 'package:card_memory_game_three/models/proveedor_juego.dart';
+import 'package:card_memory_game_three/screens/pantalla_creditos.dart';
+import 'package:card_memory_game_three/screens/pantalla_historial.dart';
+import 'package:card_memory_game_three/screens/pantalla_instrucciones.dart';
+import 'package:card_memory_game_three/widgets/menu/widgets_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

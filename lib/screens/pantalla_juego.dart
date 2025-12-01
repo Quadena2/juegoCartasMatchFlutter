@@ -1,7 +1,7 @@
-import 'package:card_memory_game_three/features/juego/presentation/providers/proveedor_juego.dart';
+import 'package:card_memory_game_three/models/proveedor_juego.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:card_memory_game_three/features/juego/presentation/providers/widgets/widgets_juego.dart';
+import 'package:card_memory_game_three/widgets/juego/widgets_juego.dart';
 
 class PantallaJuego extends StatefulWidget {
   final int tamanoCuadricula;

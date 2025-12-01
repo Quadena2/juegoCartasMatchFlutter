@@ -1,4 +1,4 @@
-import 'package:card_memory_game_three/features/menu/presentation/widgets/boton_menu.dart';
+import 'package:card_memory_game_three/widgets/menu/boton_menu.dart';
 import 'package:flutter/material.dart';
 
 class ListaNiveles extends StatelessWidget {
