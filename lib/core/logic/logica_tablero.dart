@@ -16,13 +16,26 @@ class LogicaTablero {
         .toList();
 
     if (vocabularioFiltrado.isEmpty) {
-      // Retornando vacion si no hay datos
-      return [];
+      // Sin datos en categoria usamos todo el contenido
+      vocabularioFiltrado = List.from(database);
     }
+
+    // Si la db esta vacia salimos
+    if(vocabularioFiltrado.isEmpty) return [];
 
     // Calculando cuantas parejas caben
     int totalCeldas = tamanoCuadricula * tamanoCuadricula;
     int parejasNecesarias = (totalCeldas / 2).floor();
+
+    // Correccion de freeze de pantalla
+    if(vocabularioFiltrado.length < parejasNecesarias){
+      int vecesARepetir = (parejasNecesarias / vocabularioFiltrado.length).ceil();
+      var listaBase = List<ModeloVocabulario>.from(vocabularioFiltrado);
+
+      for(int i=0; i< vecesARepetir; i++){
+        vocabularioFiltrado.addAll(listaBase);
+      }
+    }
 
     // Seleccionando  palabras ()
     vocabularioFiltrado.shuffle();
@@ -31,7 +44,8 @@ class LogicaTablero {
         .toList();
 
     // Creando las cartas Img - Texto
-    for (var vocab in palabrasSeleccionadas) {
+    for (int i=0; i<palabrasSeleccionadas.length; i++) {
+      var vocab = palabrasSeleccionadas[i];
       // Carta con imagen
       mazo.add(
         CartaJuego(

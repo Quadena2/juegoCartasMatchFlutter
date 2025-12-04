@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 class TableroJuego extends StatefulWidget {
   final int tamanoCuadricula;
   final ProveedorJuego proveedor;
+
   const TableroJuego({
     super.key,
     required this.tamanoCuadricula,
@@ -20,23 +21,45 @@ class TableroJuego extends StatefulWidget {
 class _TableroJuegoState extends State<TableroJuego> {
   final Map<int, FlipCardController> _controladores = {};
 
+  // Solucion a freeze a la hora de "volver a jugar" o "Jugar de nuevo"
+  // RESUMEN DEL ERROR: El codigo anterior comparaba proveedor antiguo con el nuevo dentro de didUpdateWidget
+  // esto falla por la igualdad, en flutter (ChangeNotifier) el objeto proveedor que se pasa al widget es una
+  // referencia en memoria, al ejecutar indicesVolteados.clear() en el proveedor, la lista se vacio en esa
+  // direccion de memoria, al ejecutar dudUpdateWidget tanto oldWidget.proveedor como widget.proveedor ambos
+  // apuntaban a la misma instancia de memoria, por lo cual ambos estaban vacios, entonces la condicion
+  // estabaLleno && estaVacio era imposible (false && true)
+
+  // SOLUCION (Snapshot): añadiendo una variable local "_cantidadVolteadosAnterior", al ser de tipo int
+  // flutter lo guarda el valor exacto del pasado, ahora con el SnapShot comparamos con el "estado presente" del proveedor
+  // SINCRONIZACION: addPostFrameCallBack para ejecutar la animacion de cierre SOLO DESPUES de que flutter termine
+  // de dibujar el cuadro actual asi evitando conflictos visuales (freeze)
+  int _cantidadVolteadasAnterior = 0;
+
   @override
   void didUpdateWidget(covariant TableroJuego oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    // Escuchar cambio en el proveedor para resetear cartas visualmente
-    if (widget.proveedor.indicesVolteados.isEmpty &&
+    // Detectando el momento exactoen que indicesVolteados pasan a estar vacio
+    if (_cantidadVolteadasAnterior > 0 &&
+        widget.proveedor.indicesVolteados.isEmpty &&
         !widget.proveedor.procesando) {
-      _resetearCartasVisualmente();
+      // Cierro de la carta
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _cerrarCartasAbiertas();
+      });
     }
+
+    _cantidadVolteadasAnterior = widget.proveedor.indicesVolteados.length;
   }
 
-  void _resetearCartasVisualmente() {
+  void _cerrarCartasAbiertas() {
     _controladores.forEach((index, controller) {
-      // Si la carta existe en el proveedor y no es match
+      // Verificando rango
       if (index < widget.proveedor.cartas.length) {
-        if (!widget.proveedor.cartas[index].estaEmparejada &&
-            controller.state?.isFront == false) {
+        final carta = widget.proveedor.cartas[index];
+
+        // Si no es Match y esta volteada, se cierra
+        if (!carta.estaEmparejada && controller.state?.isFront == false) {
           controller.toggleCard();
         }
       }
@@ -87,7 +110,9 @@ class _TableroJuegoState extends State<TableroJuego> {
 
           // Carta Jugable
           return FlipCard(
+            // Key unica de la carta, asi cuando se reinicia los id's cambia y se crean nuevos desde 0
             key: ValueKey(carta.id),
+
             controller: _controladores[index],
             flipOnTouch: false,
             // Boca abajo

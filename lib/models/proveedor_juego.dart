@@ -1,4 +1,3 @@
-
 import 'package:card_memory_game_three/models/modelo_puntaje.dart';
 import 'package:card_memory_game_three/models/modelo_vocabulario.dart';
 import 'package:card_memory_game_three/core/data/datos_estaticos.dart';
@@ -39,10 +38,10 @@ class ProveedorJuego extends ChangeNotifier {
   ProveedorJuego() {
     // Calculando el puntaje cada segundo que pasa
     _temporizador = TemporizadorJuego(
-      alActualizar: (){
+      alActualizar: () {
         _calcularPuntajeDinamico();
         notifyListeners();
-      }
+      },
     );
   }
 
@@ -51,8 +50,8 @@ class ProveedorJuego extends ChangeNotifier {
   bool get enPausa => _temporizador.enPausa;
 
   // Puntuacion dinamica (cada segundo)
-  void _calcularPuntajeDinamico(){
-    if(juegoTerminado || victoria) return;
+  void _calcularPuntajeDinamico() {
+    if (juegoTerminado || victoria) return;
 
     // Puntaje Final = (aciertos * 100) - (fallas * 50) - (segundos *2)
     int baseAciertos = aciertos * 100;
@@ -73,7 +72,7 @@ class ProveedorJuego extends ChangeNotifier {
   ) async {
     _guardarSesion(tamano, idCategoria, idioma, nombreJugador);
     _resetearEstado();
-    
+
     // Obteniendo los datos de la lista estatica
     List<ModeloVocabulario> datos = DatosEstaticos.obtenerVocabulario();
 
@@ -90,6 +89,7 @@ class ProveedorJuego extends ChangeNotifier {
 
   // Reiniciar
   Future<void> reiniciarJuego() async {
+    _temporizador.detener();
     await iniciarJuego(_tamano, _categoria, _idioma, _jugador);
   }
 
@@ -102,8 +102,7 @@ class ProveedorJuego extends ChangeNotifier {
 
   bool puedeVoltear(int index) {
     if (procesando || juegoTerminado || victoria || enPausa) return false;
-    if (cartas[index].estaEmparejada || indicesVolteados.contains(index))
-      return false;
+    if (cartas[index].estaEmparejada || indicesVolteados.contains(index)) return false;
     return true;
   }
 
@@ -114,7 +113,7 @@ class ProveedorJuego extends ChangeNotifier {
     }
   }
 
-  // Logica interna
+  // Logica de partida
   void _procesarIntento() async {
     procesando = true;
 
@@ -138,7 +137,7 @@ class ProveedorJuego extends ChangeNotifier {
   void _manejarAcierto(int idx1, int idx2) {
     cartas[idx1].estaEmparejada = true;
     cartas[idx2].estaEmparejada = true;
-    
+
     aciertos++;
     _calcularPuntajeDinamico();
 
@@ -186,8 +185,6 @@ class ProveedorJuego extends ChangeNotifier {
     victoria = false;
     indicesVolteados.clear();
     procesando = false;
-
-    indicesVolteados.clear();
     _temporizador.iniciar();
   }
 
@@ -204,7 +201,7 @@ class ProveedorJuego extends ChangeNotifier {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     _temporizador.detener();
     super.dispose();
   }

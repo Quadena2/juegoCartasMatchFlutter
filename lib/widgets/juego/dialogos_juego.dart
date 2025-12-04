@@ -26,8 +26,10 @@ class DialogosJuego {
         ),
         actions: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               Navigator.pop(ctx);
+
+              await Future.delayed(const Duration(milliseconds: 50));
               alJugarOtraVez();
             },
             child: const Text("Jugar Otra Vez"),
